@@ -1,4 +1,3 @@
-// CodePreviewToggle.js
 import Prism from 'prismjs';
 import 'prismjs/themes/prism-tomorrow.css';
 
@@ -31,15 +30,14 @@ class CodePreviewToggle {
     this.updatePreview(); // 初始渲染预览内容
 
     // 创建可编辑的代码块显示区
-    this.codeDiv = document.createElement('div');
+    this.codeDiv = document.createElement('textarea');
     this.codeDiv.classList.add('code-preview-code');
-    this.codeDiv.contentEditable = true; // 设置为可编辑
     this.codeDiv.style.display = this.data.showCode ? 'block' : 'none';
-    this.codeDiv.innerHTML = Prism.highlight(this.data.code, Prism.languages.html, 'html');
+    this.codeDiv.value = this.data.code; // 使用 value 属性设置初始代码
 
     // 添加输入事件监听器，实时更新代码和渲染结果
     this.codeDiv.addEventListener('input', (event) => {
-      this.data.code = event.target.innerText;
+      this.data.code = event.target.value;
       this.updatePreview();
     });
 
